@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title> Quiz Game </title>
+	<link rel="stylesheet" href="game.css" type="text/css">
+</head>
+<body>
+	<div class="grid">
+		<div id="hud">
+			</div>
+			<div id="hud-item">
+				<p class="hud-prefix">Score</p>
+				<h1 class="hud-main-text" id="Score">0</h1>
+			</div>
+
+			<hr style = "margin-bottom: 20px"
+
+			<p id="question"></p>
+
+			<div class="buttons">
+				<div id="btn0" class= "option0">variable car name;</div>
+				<div id="btn1" class= "option1">var car name;</div>
+				<div id="btn2" class= "option2">v carname;</div>
+			</div>
+
+			<div class="button">
+				<button type="button" class="btn" onclick="next()">Next
+				</button>
+			</div>
+
+			<hr style="margin-top: 50px">
+			
+		</div>
+		<div class="quiz-over">
+			<div class="box">
+				<h1>
+					Nice Try <br>
+					You Scored<span class="correct-answers"></span> out of <span class="total-question2"></span>
+					That is <span class ="percentage"></span>
+				</h1>
+				<button type="button" onclick="tryAgain()">TryAgain</button>
+			</div>
+		</div>
+		<script src="script.js"></script>
+</body>
+</html>
