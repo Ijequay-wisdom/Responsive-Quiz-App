@@ -4,24 +4,23 @@
 	<meta charset="UTF-8">
 	<title> Quiz Game </title>
 	<link rel="stylesheet" href="game.css" type="text/css">
+	<script src="script.js"></script>
 </head>
 <body>
-	<div class="grid">
-		<div id="hud">
-			</div>
-			<div id="hud-item">
-				<p class="hud-prefix">Score</p>
-				<h1 class="hud-main-text" id="Score">0</h1>
-			</div>
+	<div class="quiz-container">
+		<div class="question-number">
+			<h3>Question<span class ="question-num-value"></span> of <span class = "total-question"></span></h3>
+		</div>
 
-			<hr style = "margin-bottom: 20px"
+		<hr style="margin-top: 50px">
 
-			<p id="question"></p>
+		<div class ="question">
+		</div>	
 
-			<div class="buttons">
-				<div id="btn0" class= "option0">variable car name;</div>
-				<div id="btn1" class= "option1">var car name;</div>
-				<div id="btn2" class= "option2">v carname;</div>
+			<div class="options">
+				<div id="0" class= "option0" onclick="check(this)"></div>
+				<div id="1" class= "option1" onclick="check(this)"></div>
+				<div id="2" class= "option2" onclick="check(this)"></div>
 			</div>
 
 			<div class="button">
@@ -42,6 +41,5 @@
 				<button type="button" onclick="tryAgain()">TryAgain</button>
 			</div>
 		</div>
-		<script src="script.js"></script>
 </body>
 </html>

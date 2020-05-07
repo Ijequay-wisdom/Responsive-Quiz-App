@@ -1,9 +1,9 @@
 
 const options=document.querySelector(".options").children;
-const questionNumberSpan=document.querySelector(".question-num-value")
+const questionNumberSpan=document.querySelector(".question-num-value");
 const totalQuestionSpan=document.querySelector(".total-question");
 const correctAnswerSpan=document.querySelector(".correct-answers");
-const totalQuestionSpan2=document.querySelector(".total-questions")
+const totalQuestionSpan2=document.querySelector(".total-questions");
 const percentage=document.querySelector(".percentage");
 const question=document.querySelector(".question");	
 const op1=document.querySelector(".option1");
@@ -20,16 +20,32 @@ let score=0;
 
 const questions=[
 {
-	q:
-
-
-
-
-
-
+	q: 'HTML is Referred to as?',
+	options:['Hypertext-Makeup-Language','Hypertext-Mock-Language','Hypertext-Markup-Language'],
+	answer:2
+},
+{
+	q: 'CSS is Referred to as?',
+	options:['Cascading Style Sheet','Cascade Sheet Style','Cascarding Style Sheet'],
+	answer:0
+},
+{
+	q: 'One of the following is a tag in html?',
+	options:['<br>','<z>','<pat>'],
+	answer:0
+},
+{
+	q: 'What does the tag <br> stand for in html?',
+	options:['base','break','bracket'],
+	answer:1
+},
+{
+	q: 'The following a Mentors in start.ng Except?',
+	options:['Oyindamola','Xyluz','Jeff'],
+	answer:0
 }
-
 ]
+
 //question and Answer Number
 totalQuestionSpan.innerHTML=questions.length;
 function load(){
@@ -73,7 +89,7 @@ function enableOptions(){
 
 function validate(){
 	if(!options[0].classList.contains("disabled")){
-		alert("Please Select at least one option")
+		alert("Please Select at least one option");
 	}
 	else{
 		enableOptions();
@@ -138,4 +154,3 @@ function tryAgain(){
 window.onload=function(){
 	randomQuestion();
 }	
-	
