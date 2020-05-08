@@ -55,23 +55,23 @@ function load(){
     op3.innerHTML=questions[questionIndex].options[2];
     op4.innerHTML=questions[questionIndex].options[3];
     index++;
-
 }
 
 function check(element){
     if(element.id==questions[questionIndex].answer){
         element.classList.add("correct")
-        score++
+        score++;
         console.log("score:"+score)
     }
     else{
-        element.classList.add("wrong")
+        element.classList.add("wrong");
+
     }
     disabledOptions()
 }
 
 function disabledOptions(){
-    for(let i=0; i<options.length; i++){
+    for(let i=0; i<options.length; i++) {
     options[i].classList.add("disabled");
     if(options[i].id==questions[questionIndex].answer){
         options[i].classList.add("correct");
@@ -79,15 +79,12 @@ function disabledOptions(){
          }   
 
     }
-
 }
 
 function enableOptions(){
     for(let i=0; i<options.length; i++){
         options[i].classList.remove("disabled", "correct", "wrong");
-
     }
-
 }
 
 function validate(){
@@ -102,15 +99,13 @@ function validate(){
 
 function next(){
     validate();
-
 }
 
-function randomQuestion(){
-    let randomNumber=Math.floor(Math.random()*questions.length);
-    let hitDuplicate=0;
+    function randomQuestion(){
+     let randomNumber=Math.floor(Math.random()*questions.length);
+     let hitDuplicate=0;
         if(index==questions.lenght){
-            quizOver;
-
+            quizOver();
         }
         else{
             if(myArray.length>0){
@@ -128,13 +123,11 @@ function randomQuestion(){
                     load();
                     myArr.push(questionIndex);
                 }
-
             }
             if(myArray.length==0){
-                questionIndex=randomNumber;
-                load();
-                myArr.push(questionIndex);
-
+            questionIndex=randomNumber;
+            load();
+            myArr.push(questionIndex);
             }
 
         myArray.push(randomNumber);
@@ -147,7 +140,6 @@ function quizOver(){
     correctAnswerSpan.innerHTML=score;
     totalQuestionSpan2.innerHTML=questions.length;
     percentage.innerHTML=(score/questions.length)*100 + "%";
-
 }
 
 function tryAgain(){
@@ -155,7 +147,6 @@ function tryAgain(){
 }
 window.onload=function(){
     randomQuestion();
-
 }
 
 
