@@ -3,43 +3,42 @@
 <head>
 	<meta charset="UTF-8">
 	<title> Quiz Game </title>
-	<link rel="stylesheet" href="game.css" type="text/css">
-	<script src="script.js"></script>
+	<link rel="stylesheet" href="app.css" type="text/css">
 </head>
 <body>
 	<div class="quiz-container">
 		<div class="question-number">
-			<h3>Question<span class ="question-num-value"></span> of <span class = "total-question"></span></h3>
+			<h3>Question <span class ="question-num-value"></span> of  <span class="total-question"> </span></h3>
 		</div>
 
 		<hr style="margin-top: 50px">
 
 		<div class ="question">
+            How to Declare a Javascript variable?
 		</div>	
 
 			<div class="options">
-				<div id="0" class= "option0" onclick="check(this)"></div>
-				<div id="1" class= "option1" onclick="check(this)"></div>
-				<div id="2" class= "option2" onclick="check(this)"></div>
+				<div id="0" class= "option1 " onclick="check(this)"></div>
+				<div id="1" class= "option2 " onclick="check(this)"></div>
+				<div id="2" class= "option3 " onclick="check(this)"></div>
+				<div id="3" class= "option4 " onclick="check(this)"></div>
 			</div>
 
 			<div class="button">
-				<button type="button" class="btn" onclick="next()">Next
-				</button>
+				<button type="button" class="btn" onclick="next()">Next</button>
 			</div>
+			<hr style="margin-top: 60px">
 
-			<hr style="margin-top: 50px">
-			
-		</div>
-		<div class="quiz-over">
-			<div class="box">
-				<h1>
-					Nice Try <br>
-					You Scored<span class="correct-answers"></span> out of <span class="total-question2"></span>
-					That is <span class ="percentage"></span>
-				</h1>
-				<button type="button" onclick="tryAgain()">TryAgain</button>
+			<div class="quiz-over">
+				<div class="box">
+					<h1>
+						Nice Try <br>
+						You Score is <span class="correct-answers"></span> out of <span class="total-question2"></span> <br>
+						That's <span class ="percentage"></span>
+					</h1>
+					<button type="button" onclick="tryAgain()">TryAgain</button>
+				</div>
 			</div>
-		</div>
+			<script src="script.js"></script>
 </body>
 </html>
