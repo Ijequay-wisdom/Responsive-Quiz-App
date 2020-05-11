@@ -1,158 +1,195 @@
 
-const options=document.querySelector(".options").children;
-const questionNumberSpan=document.querySelector(".question-num-value");
-const totalQuestionSpan=document.querySelector(".total-question");
-const correctAnswerSpan=document.querySelector(".correct-answers");
-const totalQuestionSpan2=document.querySelector(".total-question2");
-const percentage=document.querySelector(".percentage");
-const question=document.querySelector(".question");	
-const op1=document.querySelector(".option1");
-const op2=document.querySelector(".option2");
-const op3=document.querySelector(".option3");
-const op4=document.querySelector(".option4");
-let questionIndex;
-let index=0;
-let myArray=[];
-let myArr=[];
+
+const questionText=document.querySelector(".question-text");
+const optionBox=document.querySelector(".option-box");
+const currentQuestionNum=document.querySelector(".current-question-num");
+const nextQuestionBtn=document.querySelector(".next-question-btn");
+const correctAnswers=document.querySelector(".correct-answers");
+const seeResultBtn=document.querySelector(".see-result-btn");1
+const quizHomeBox=document.querySelector(".quiz-home-box");
+const quizBox=document.querySelector(".quiz-box");
+const quizOverBox=document.querySelector(".quiz-over-box");
+const playAgainQuizBtn=document.querySelector(".play-again-quiz-btn");
+const goHomeBtn=document.querySelector(".go-home-btn");
+const startQuizBtn=document.querySelector(".start-quiz-btn");
+let Grade=0;
+let questionIndex=0;
 let score=0;
-
-// My Questions and Answer//
-
-const questions=[
+let number=0;
+let myArray=[];
+// questions and options 
+myApp=[
     {
-        q: 'HTML is Referred to as...?',
+        question:'HTML is Referred to as...?',
         options:['Hypertext-Makeup-Language','Hypertext-Mock-Language','Hypertext-Markup-Language','Hypertest-Makeup-Language'],
-        answer:2
+        answer:2,
     },
     {
-        q: 'Which of These property used to set background color in CSS?...',
+        question:'Which of These property used to set background color in CSS?...',
         options:['color','background-color','background color','none'],
-        answer:1
+        answer:1,
     },
     {
-        q: 'What is the appropiate HTML tag used in displaying largest headings?...',
+        question:'What is the appropiate HTML tag used in displaying largest headings?...',
         options:["headings",'head','h1', 'h6'],
-        answer:2
+        answer:2,
     },
     {
-        q: 'Which of these tags is used to make a list with numbers?...',
+        question:'Which of these tags is used to make a list with numbers?...',
         options:['ol','List','ul','oi'],
-        answer:0
+        answer:0,
     },
     {
-        q: 'One of the following is the correct HTML tag to make a bold text?...',
+        question:'One of the following is the correct HTML tag to make a bold text?...',
         options:['b','bold','bb','bo'],
-        answer:0
+        answer:0,
     }
-]
 
-totalQuestionSpan.innerHTML=questions.length;
+      ]
+
 function load(){
-    questionNumberSpan.innerHTML=index+1;
-    question.innerHTML=questions[questionIndex].q;
-    op1.innerHTML=questions[questionIndex].options[0];
-    op2.innerHTML=questions[questionIndex].options[1];
-    op3.innerHTML=questions[questionIndex].options[2];
-    op4.innerHTML=questions[questionIndex].options[3];
-    index++;
+    number++;
+    questionText.innerHTML=myApp[questionIndex].question;
+    createOptions();
+    scoreBoard();
+    currentQuestionNum.innerHTML=number + " / " + myApp.length;
 }
 
-function check(element){
-    if(element.id==questions[questionIndex].answer){
-        element.classList.add("correct")
-        score++;
-        console.log("score:"+score)
+function createOptions(){
+    optionBox.innerHTML="";
+    for(let i=0; i<myApp[questionIndex].options.length; i++){
+       const option=document.createElement("div");
+       option.innerHTML=myApp[questionIndex].options[i];
+       option.classList.add("option");
+       option.id=i;
+       option.setAttribute("onclick","check(this)");
+       optionBox.appendChild(option);
+    }
+}
+
+function generateRandomQuestion(){
+    const randomNumber=Math.floor(Math.random() * myApp.length);
+    let hitDuplicate=0;
+    if(myArray.length  == 0){
+        questionIndex=randomNumber;
     }
     else{
-        element.classList.add("wrong");
-
-    }
-    disabledOptions()
-}
-
-function disabledOptions(){
-    for(let i=0; i<options.length; i++) {
-    options[i].classList.add("disabled");
-    if(options[i].id==questions[questionIndex].answer){
-        options[i].classList.add("correct");
-        
-         }   
-
-    }
-}
-
-function enableOptions(){
-    for(let i=0; i<options.length; i++){
-        options[i].classList.remove("disabled", "correct", "wrong");
-    }
-}
-
-function validate(){
-    if(!options[0].classList.contains("disabled")){
-        alert("please Select at least one option")
-    }
-    else{
-        enableOptions();
-        randomQuestion();
-    }
-}
-
-function next(){
-    validate();
-}
-
-    function randomQuestion(){
-     let randomNumber=Math.floor(Math.random()*questions.length);
-     let hitDuplicate=0;
-        if(index==questions.lenght){
-            quizOver();
+        for(let i=0; i<myArray.length; i++){
+            if(randomNumber == myArray[i]){
+              
+            hitDuplicate=1;
+           } 
+        }
+        if(hitDuplicate == 1){
+            generateRandomQuestion();
+            return;
         }
         else{
-            if(myArray.length>0){
-                for(let i=0; i<myArray.length; i++){
-                    if(myArray[i]==randomNumber){
-                        hitDuplicate=1;
-                        break;
-                    }
-                }
-                if(hitDuplicate==1){
-                    randomQuestion();
-                }
-                else{
-                    questionIndex=randomNumber;
-                    load();
-                    myArr.push(questionIndex);
-                }
-            }
-            if(myArray.length==0){
-            questionIndex=randomNumber;
-            load();
-            myArr.push(questionIndex);
-            }
-
-        myArray.push(randomNumber);
-
+          questionIndex=randomNumber;  
         }
+    }
+    myArray.push(randomNumber);
+    console.log(myArray)
+    load();
+}
+
+function check(ele){
+    const id=ele.id;
+    if(id==myApp[questionIndex].answer){
+        ele.classList.add("correct");
+        score++;
+        scoreBoard();
+    }
+    else{
+        ele.classList.add("wrong");
+        for(let i=0; i<optionBox.children.length; i++){
+            if(optionBox.children[i].id==myApp[questionIndex].answer){
+                optionBox.children[i].classList.add("show-correct");
+            }
+        }
+    }
+    Grade++;
+    disableOptions()
+    showNextQuestionBtn();
+
+    if(number == myApp.length){
+        quizOver();
+    }
+}
+
+function disableOptions(){
+    for(let i=0; i<optionBox.children.length; i++){
+        optionBox.children[i].classList.add("already-answered");
+    }
+}
+
+function showNextQuestionBtn(){
+    nextQuestionBtn.classList.add("show");
+}
+
+function hideNextQuestionBtn(){
+    nextQuestionBtn.classList.remove("show");
+}
+
+function scoreBoard(){
+    correctAnswers.innerHTML=score;
+}
+
+nextQuestionBtn.addEventListener("click", nextQuestion);
+
+function nextQuestion(){
+    questionIndex++;
+    generateRandomQuestion();
+    hideNextQuestionBtn();
+}
+
+function quizResult(){
+     document.querySelector(".total-score").innerHTML=score;
+}
+
+function resetQuiz(){
+     Grade=0;
+    // questionIndex=0;
+     score=0;
+     number=0;
+     myArray=[];
 }
 
 function quizOver(){
-    document.querySelector(".quiz-over").classList.add("show");
-    correctAnswerSpan.innerHTML=score;
-    totalQuestionSpan2.innerHTML=questions.length;
-    percentage.innerHTML=(score/questions.length)*100 + "%";
+    nextQuestionBtn.classList.remove("show");
+    seeResultBtn.classList.add("show");
 }
 
-function tryAgain(){
-    window.location.reload();
-}
-window.onload=function(){
-    randomQuestion();
-}
+seeResultBtn.addEventListener("click",()=>{
+    quizBox.classList.remove("show");
+    seeResultBtn.classList.remove("show");
+    quizOverBox.classList.add("show"); 
+    quizResult();   
+})
 
+playAgainQuizBtn.addEventListener("click",()=>{
+    quizBox.classList.add("show");
+    quizOverBox.classList.remove("show"); 
+    resetQuiz();
+    nextQuestion();
+}) 
 
+goHomeBtn.addEventListener("click",()=>{
+    quizOverBox.classList.remove("show"); 
+    quizHomeBox.classList.add("show");
+    resetQuiz();
 
+})
 
+startQuizBtn.addEventListener("click",()=>{
+    quizHomeBox.classList.remove("show");
+    quizBox.classList.add("show");
+    nextQuestion();
+})
 
+//window.onload=()=>{
+    
+//}
 
 
 
